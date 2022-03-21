@@ -1,0 +1,29 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+galaxy_info:
+  role_name: "manage_cloudflared"
+  author: "Matthew Ahrenstein"
+  description: "Deploy and configure cloudflared using pre-created tunnel credentials"
+  company: "Route 1337 LLC"
+  license: "license (MIT)"
+  min_ansible_version: "2.8"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+  galaxy_tags:
+    - cloudflared
+    - zerotrust
+    - security
+    - vpn
+    - reverseproxy

@@ -1,0 +1,37 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Manage prerequisites for this role
+
+- name: Add the cloudflared repo GPG key
+  ansible.builtin.apt_key:
+    url: https://pkg.cloudflare.com/pubkey.gpg
+    state: present
+
+- name: Add the cloudflared repo
+  ansible.builtin.apt_repository:
+    repo: deb https://pkg.cloudflare.com/ {{ ansible_distribution_release }} main
+    state: present
+    update_cache: yes
+
+- name: Install cloudflared
+  ansible.builtin.apt:
+    name: cloudflared
+    state: present
+
+- name: Configure cloudflared directory
+  ansible.builtin.file:
+    path: "/etc/cloudflared"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory

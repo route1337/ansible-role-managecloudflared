@@ -1,0 +1,33 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Deploy and configure tunnels for cloudflared
+
+- name: Deploy the tunnel
+  template:
+    src: 'credentials.json.j2'
+    dest: '/etc/cloudflared/credentials.json'
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - restart cloudflared
+
+- name: Deploy the tunnel configuration
+  template:
+    src: 'config.yml.j2'
+    dest: '/etc/cloudflared/config.yml'
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - restart cloudflared

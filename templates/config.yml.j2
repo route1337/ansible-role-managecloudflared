@@ -1,0 +1,26 @@
+# cloudflared tunnel
+tunnel: {{ managed_cloudflared.tunnel_name }}
+credentials-file: /etc/cloudflared/credentials.json
+# Disabling auto updates to avoid tunnels restarting when in use or when admins might be remote
+no-autoupdate: true
+{% if managed_cloudflared.warp %}
+# WARP routing is being used on this server.
+warp-routing:
+  enabled: true
+{% else %}
+# Ingress tunnels are being used on this server
+ingress:
+{% for item in managed_cloudflared.ingresses %}
+# Tunnel for {{ item.hostname }}
+- hostname: {{ item.hostname }}
+  service: {{ item.service }}
+  originRequest:
+{% if item.dont_verify_ssl is defined and item.dont_verify_ssl is sameas true %}
+      noTLSVerify: true
+{% else %}
+      noTLSVerify: false
+{% endif %}
+{% endfor %}
+# This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
+- service: http_status:404
+{% endif %}

@@ -1,0 +1,30 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Configure SystemD to enable and start cloudflared
+
+- name: Install cloudflared as a service
+  ansible.builtin.command:
+    cmd: 'cloudflared service install'
+    creates: '/etc/systemd/system/cloudflared.service'
+  register: cloudflared_service
+  notify:
+    - reload systemd
+
+- name: Run handlers now to reload SystemD
+  meta: flush_handlers
+
+- name: Start and enable cloudflared
+  ansible.builtin.service:
+    name: cloudflared
+    enabled: yes
+    state: started

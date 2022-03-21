@@ -1,0 +1,20 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Deploy and configure cloudflared
+
+- import_tasks: prereqs.yml
+  when: ansible_distribution == 'Ubuntu'
+- import_tasks: config.yml
+  when: ansible_distribution == 'Ubuntu'
+- import_tasks: systemd.yml
+  when: ansible_distribution == 'Ubuntu'
