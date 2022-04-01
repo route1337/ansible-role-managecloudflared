@@ -27,26 +27,26 @@ for security reasons.
 
 The following variables are required:
 
-1. `managed_cloudflared.warp` - Use WARP tunneling instead of ingresses (Default: `false`)
-2. `managed_cloudflared.tunnel_uuid` - The UUID of your cloudflared tunnel
+1. `manage_cloudflared.warp` - Use WARP tunneling instead of ingresses (Default: `false`)
+2. `manage_cloudflared.tunnel_uuid` - The UUID of your cloudflared tunnel
 ```yaml
-managed_cloudflared.tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
+manage_cloudflared.tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
 ```
-3. `managed_cloudflared.account_tag` - The account tag of your cloudflared tunnel
+3. `manage_cloudflared.account_tag` - The account tag of your cloudflared tunnel
 ```yaml
-managed_cloudflared.account_tag: "1234567abcdefg890123hijklom45678"
+manage_cloudflared.account_tag: "1234567abcdefg890123hijklom45678"
 ```
-4. `managed_cloudflared.tunnel_secret` - The tunnel secret of your cloudflared tunnel
+4. `manage_cloudflared.tunnel_secret` - The tunnel secret of your cloudflared tunnel
 ```yaml
-managed_cloudflared.tunnel_secret: "YmFkc2VjcmV0Cg=="
+manage_cloudflared.tunnel_secret: "YmFkc2VjcmV0Cg=="
 ```
-5. `managed_cloudflared.tunnel_name` - The tunnel's name as configured by cloudflared
+5. `manage_cloudflared.tunnel_name` - The tunnel's name as configured by cloudflared
 ```yaml
-managed_cloudflared.tunnel_name: "internal_websites"
+manage_cloudflared.tunnel_name: "internal_websites"
 ```
-6. `managed_cloudflared.ingresses` - A list of tunnel ingresses (This will be ignored if you set `cloudflared.warp` to `true`)
+6. `manage_cloudflared.ingresses` - A list of tunnel ingresses (This will be ignored if you set `cloudflared.warp` to `true`)
 ```yaml
-managed_cloudflared.ingresses:
+manage_cloudflared.ingresses:
    - hostname: statuspage.externaldomain.com
      service: "https://10.1.2.3:443"
      dont_verify_ssl: true

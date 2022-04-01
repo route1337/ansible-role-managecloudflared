@@ -13,7 +13,7 @@
 # Default settings for the role's variables
 # WARNING! These are non-functioning variables and should be overridden!
 
-managed_cloudflared:
+manage_cloudflared:
   warp: false
   tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
   account_tag: "1234567abcdefg890123hijklom45678"

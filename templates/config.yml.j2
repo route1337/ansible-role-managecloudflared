@@ -1,16 +1,16 @@
 # cloudflared tunnel
-tunnel: {{ managed_cloudflared.tunnel_name }}
+tunnel: {{ manage_cloudflared.tunnel_name }}
 credentials-file: /etc/cloudflared/credentials.json
 # Disabling auto updates to avoid tunnels restarting when in use or when admins might be remote
 no-autoupdate: true
-{% if managed_cloudflared.warp %}
+{% if manage_cloudflared.warp %}
 # WARP routing is being used on this server.
 warp-routing:
   enabled: true
 {% else %}
 # Ingress tunnels are being used on this server
 ingress:
-{% for item in managed_cloudflared.ingresses %}
+{% for item in manage_cloudflared.ingresses %}
 # Tunnel for {{ item.hostname }}
 - hostname: {{ item.hostname }}
   service: {{ item.service }}
