@@ -18,4 +18,3 @@
     state: present
     value: '2500000'
     reload: yes
-
