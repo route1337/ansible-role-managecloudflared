@@ -1,0 +1,21 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Configure some sysctl parameters for a smoother WARP experience
+
+- name: Increase the maximum socket receive buffer size
+  ansible.posix.sysctl:
+    name: net.core.rmem_max
+    state: present
+    value: '2500000'
+    reload: yes
+

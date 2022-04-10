@@ -2,15 +2,6 @@ Ansible Role - manage_cloudflared
 ==========================
 This repo contains the Ansible role for configuring a cloudflared server in either WARP mode, or ingress mode.
 
-1. [This file!](README.md)
-2. [CHANGELOG](CHANGELOG.md)
-3. [TESTING](TESTING.md)
-4. [CONTRIBUTING](CONTRIBUTING.md)
-5. [Kitchen Test](.kitchen.yml)
-6. [Galaxy metadata](meta/main.yml)
-
-Doing a `grep -rl CHANGEME .` is a good idea ;)
-
 What this role does
 -------------------
 This Ansible role will allow you to configure cloudflared on an Ubuntu 20.04 server in either WARP tunnel mode, or in ingress mode.
@@ -19,6 +10,7 @@ This Ansible role will allow you to configure cloudflared on an Ubuntu 20.04 ser
 2. Configure cloudflared
     1. Set cloudflared to start as a service
     2. Start cloudflared
+3. Optionally configure sysctl if cloudflared is running a WARP tunnel
 
 Variables
 ---------

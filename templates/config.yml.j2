@@ -5,6 +5,7 @@ credentials-file: /etc/cloudflared/credentials.json
 no-autoupdate: true
 {% if manage_cloudflared.warp %}
 # WARP routing is being used on this server.
+protocol: quic
 warp-routing:
   enabled: true
 {% else %}
