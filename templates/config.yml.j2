@@ -21,6 +21,9 @@ ingress:
 {% else %}
       noTLSVerify: false
 {% endif %}
+{% if item.host_header is defined %}
+      httpHostHeader: {{ item.host_header }}
+{% endif %}
 {% endfor %}
 # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
 - service: http_status:404

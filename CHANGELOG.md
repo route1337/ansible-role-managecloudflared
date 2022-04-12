@@ -2,6 +2,11 @@ Ansible Role - manage_cloudflared: Changelog
 =====================================
 A list of all the changes made to this repo and the role it contains
 
+Version 0.2.2
+-------------
+
+1. Adding the httpHostHeader ingress originRequest option
+
 Version 0.2.1
 -------------
 

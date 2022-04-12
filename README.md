@@ -42,6 +42,7 @@ manage_cloudflared.ingresses:
    - hostname: statuspage.externaldomain.com
      service: "https://10.1.2.3:443"
      dont_verify_ssl: true
+     host_header: "status.internaldomain.com"
    - hostname: timeclock.externaldomain.com
      service: "https://timeclock.internaldomain.net:443"
    - hostname: timeclock.externaldomain.com
