@@ -12,14 +12,19 @@
 
 # Manage prerequisites for this role
 
-- name: Add the cloudflared repo GPG key
-  ansible.builtin.apt_key:
+- name: Download cloudflared GPG key
+  get_url:
     url: https://pkg.cloudflare.com/pubkey.gpg
-    state: present
+    dest: /usr/share/keyrings/cloudflared.gpg_armored
 
-- name: Add the cloudflared repo
-  ansible.builtin.apt_repository:
-    repo: deb https://pkg.cloudflare.com/ {{ ansible_distribution_release }} main
+- name: De-Armor and install Docker GPG key
+  shell: "gpg --dearmor < /usr/share/keyrings/cloudflared.gpg_armored > /usr/share/keyrings/cloudflared.gpg"
+  args:
+    creates: /usr/share/keyrings/cloudflared.gpg
+
+- name: Add the cloudflared repository
+  apt_repository:
+    repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflared.gpg] https://pkg.cloudflare.com/ {{ ansible_distribution_release }} main'
     state: present
     update_cache: yes
 
