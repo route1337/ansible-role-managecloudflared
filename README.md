@@ -4,7 +4,7 @@ This repo contains the Ansible role for configuring a cloudflared server in eith
 
 What this role does
 -------------------
-This Ansible role will allow you to configure cloudflared on an Ubuntu 20.04 server in either WARP tunnel mode, or in ingress mode.
+This Ansible role will allow you to configure cloudflared on an Ubuntu 20.04+ server in either WARP tunnel mode, or in ingress mode.
 
 1. Download and install cloudflared via a package repo
 2. Configure cloudflared

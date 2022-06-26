@@ -9,7 +9,7 @@ protocol: quic
 warp-routing:
   enabled: true
 {% else %}
-# Ingress tunnels are being used on this server
+# Ingress tunnels that are being used on this server
 ingress:
 {% for item in manage_cloudflared.ingresses %}
 # Tunnel for {{ item.hostname }}
