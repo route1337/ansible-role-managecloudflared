@@ -3,13 +3,13 @@ tunnel: {{ manage_cloudflared.tunnel_name }}
 credentials-file: /etc/cloudflared/credentials.json
 # Disabling auto updates to avoid tunnels restarting when in use or when admins might be remote
 no-autoupdate: true
+protocol: quic
 {% if manage_cloudflared.warp %}
 # WARP routing is being used on this server.
-protocol: quic
 warp-routing:
   enabled: true
 {% else %}
-# Ingress tunnels are being used on this server
+# Ingress tunnels that are being used on this server
 ingress:
 {% for item in manage_cloudflared.ingresses %}
 # Tunnel for {{ item.hostname }}

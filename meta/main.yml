@@ -21,6 +21,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - focal
+        - jammy
   galaxy_tags:
     - cloudflared
     - zerotrust

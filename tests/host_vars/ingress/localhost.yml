@@ -1,0 +1,28 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Testing an ingress tunnel
+
+manage_cloudflared:
+  warp: false
+  tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
+  account_tag: "1234567abcdefg890123hijklom45678"
+  tunnel_secret: "YmFkc2VjcmV0Cg=="
+  tunnel_name: "internal_websites"
+  ingresses:
+    - hostname: test.externaldomain.com
+      service: "https://10.1.2.3:443"
+      dont_verify_ssl: true
+    - hostname: timeclock.externaldomain.com
+      service: "https://timeclock.internaldomain.net:443"
+    - hostname: ssh_host.externaldomain.com
+      service: "ssh://gateway.internaldomain.net:22"

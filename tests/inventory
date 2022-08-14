@@ -1,0 +1,14 @@
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# There is only one host in the test inventory since kitchen only works as localhost
+[kitchen]
+localhost

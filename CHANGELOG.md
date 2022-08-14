@@ -2,6 +2,16 @@ Ansible Role - manage_cloudflared: Changelog
 =====================================
 A list of all the changes made to this repo and the role it contains
 
+Version 0.3.0
+-------------
+
+1. Updating repo to reflect Cloudflare's new pkg repo source
+2. Adding support for Ubuntu 22.04
+3. `protocol: quic` is now used for ingress tunnels as well
+4. Adding Kitchen testing
+   1. NOTE: This requires you to adjust the test suite `host_vars` and `smoke` with real tunnel data or it will fail.  
+   **DO NOT ACCIDENTALLY COMMIT REAL TUNNEL DATA**
+
 Version 0.2.2
 -------------
 

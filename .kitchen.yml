@@ -1,0 +1,64 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+driver:
+  name: ec2
+  some_config: true
+  region: us-east-1
+  instance_type: m3.medium
+  associate_public_ip: true
+  interface: dns
+
+provisioner:
+  name: ansible_playbook
+  ansible_verbose: true
+  ansible_verbosity: 4
+
+verifier:
+  name: inspec
+
+transport:
+  connection_timeout: 10
+  connection_retries: 5
+  username: ubuntu
+
+platforms:
+  - name: ubuntu-20.04
+  - name: ubuntu-22.04
+    driver:
+      image_id: ami-0515e1913cfc2801d # A private custom AMI that enables ssh-rsa keys for sshd in Vagrant.
+
+suites:
+  - name: ingress
+    provisioner:
+      require_ansible_repo: true
+      require_ansible_source: false
+      playbook: tests/playbooks/repo-role.yml
+      hosts: kitchen
+      roles_path: .
+      ansible_inventory: tests/inventory
+      host_vars_path: tests/host_vars/ingress
+    verifier:
+      inspec_tests:
+      - tests/smoke/repo-role/ingress
+  - name: warp
+    provisioner:
+      require_ansible_repo: true
+      require_ansible_source: false
+      playbook: tests/playbooks/repo-role.yml
+      hosts: kitchen
+      roles_path: .
+      ansible_inventory: tests/inventory
+      host_vars_path: tests/host_vars/warp
+    verifier:
+      inspec_tests:
+        - tests/smoke/repo-role/warp

@@ -1,0 +1,20 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Testing a warp tunnel
+
+manage_cloudflared:
+  warp: true
+  tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
+  account_tag: "1234567abcdefg890123hijklom45678"
+  tunnel_secret: "YmFkc2VjcmV0Cg=="
+  tunnel_name: "internal_websites"

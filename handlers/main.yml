@@ -14,11 +14,11 @@
 
 # Handlers for systemd
 - name: reload systemd
-  ansible.builtin.systemd:
-    daemon_reload: yes
-    no_block: no
+  systemd:
+    daemon_reload: true
+    no_block: false
 
 - name: restart cloudflared
-  ansible.builtin.service:
+  service:
     name: cloudflared
     state: restarted

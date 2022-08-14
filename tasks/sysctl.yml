@@ -13,8 +13,8 @@
 # Configure some sysctl parameters for a smoother WARP experience
 
 - name: Increase the maximum socket receive buffer size
-  ansible.posix.sysctl:
+  sysctl:
     name: net.core.rmem_max
     state: present
     value: '2500000'
-    reload: yes
+    reload: true
