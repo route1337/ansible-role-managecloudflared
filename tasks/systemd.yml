@@ -13,7 +13,7 @@
 # Configure SystemD to enable and start cloudflared
 
 - name: Install cloudflared as a service
-  ansible.builtin.command:
+  command:
     cmd: 'cloudflared service install'
     creates: '/etc/systemd/system/cloudflared.service'
   register: cloudflared_service
@@ -24,7 +24,7 @@
   meta: flush_handlers
 
 - name: Start and enable cloudflared
-  ansible.builtin.service:
+  service:
     name: cloudflared
-    enabled: yes
+    enabled: true
     state: started

@@ -17,6 +17,6 @@
 - import_tasks: config.yml
   when: ansible_distribution == 'Ubuntu'
 - import_tasks: sysctl.yml
-  when: ansible_distribution == 'Ubuntu' and manage_cloudflared.warp == true
+  when: ansible_distribution == 'Ubuntu'
 - import_tasks: systemd.yml
   when: ansible_distribution == 'Ubuntu'
