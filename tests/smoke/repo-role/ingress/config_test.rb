@@ -34,8 +34,8 @@ if os[:name] == 'ubuntu'
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 0600 }
-    its('content') { should match /"AccountTag":"8323ac2fbbedf57eb7cd0d527bb9efca"/ }
-    its('content') { should match /"TunnelSecret":"gYcbR1HsZaqnPYdEr2q6gm73e0Jm5NWA63f39kvUJnY="/ }
+    its('content') { should match /"AccountTag":"1234567abcdefg890123hijklom45678"/ }
+    its('content') { should match /"TunnelSecret":"YmFkc2VjcmV0Cg=="/ }
     its('content') { should match /"TunnelID":"a1b234c5-de67-89f0-g123-4hi5jk678l90"/ }
   end
 
