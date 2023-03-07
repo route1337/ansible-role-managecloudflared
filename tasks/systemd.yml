@@ -27,4 +27,4 @@
   service:
     name: cloudflared
     enabled: true
-    state: started
+    state: restarted
