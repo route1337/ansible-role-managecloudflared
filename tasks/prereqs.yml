@@ -32,7 +32,7 @@
 - name: Install cloudflared
   ansible.builtin.apt:
     name: cloudflared
-    state: present
+    state: latest
 
 - name: Configure cloudflared directory
   ansible.builtin.file:
