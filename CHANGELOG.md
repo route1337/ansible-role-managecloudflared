@@ -2,6 +2,11 @@ Ansible Role - manage_cloudflared: Changelog
 =====================================
 A list of all the changes made to this repo and the role it contains
 
+Version 0.3.1
+-------------
+
+1. `cloudflared` package will now use `state: latest` in order to keep things up to date easily
+
 Version 0.3.0
 -------------
 
