@@ -26,7 +26,7 @@ are largely the same for Linux.
 10. Now try `kitchen list` to see the roles available for testing.
 11. Create a Cloudflare account with an authoritative domain configured
 12. Login to a cloudflared install on your local machine and create some test tunnels matching the configurations you are testing changes too.
-   1. It's a good idea to test all tunnel variants before opening a PR
+    1. It's a good idea to test all tunnel variants before opening a PR
 13. Validate the role works against your test tunnels
 
 Delayed PRs

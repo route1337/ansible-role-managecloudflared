@@ -10,7 +10,6 @@ This Ansible role will allow you to configure cloudflared on an Ubuntu 20.04+ se
 2. Configure cloudflared
     1. Set cloudflared to start as a service
     2. Start cloudflared
-3. Optionally configure sysctl if cloudflared is running a WARP tunnel
 
 Variables
 ---------
@@ -20,34 +19,42 @@ for security reasons.
 The following variables are required:
 
 1. `manage_cloudflared.warp` - Use WARP tunneling instead of ingresses (Default: `false`)
-2. `manage_cloudflared.tunnel_uuid` - The UUID of your cloudflared tunnel
-```yaml
-manage_cloudflared.tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
-```
-3. `manage_cloudflared.account_tag` - The account tag of your cloudflared tunnel
-```yaml
-manage_cloudflared.account_tag: "1234567abcdefg890123hijklom45678"
-```
-4. `manage_cloudflared.tunnel_secret` - The tunnel secret of your cloudflared tunnel
-```yaml
-manage_cloudflared.tunnel_secret: "YmFkc2VjcmV0Cg=="
-```
-5. `manage_cloudflared.tunnel_name` - The tunnel's name as configured by cloudflared
-```yaml
-manage_cloudflared.tunnel_name: "internal_websites"
-```
-6. `manage_cloudflared.ingresses` - A list of tunnel ingresses (This will be ignored if you set `cloudflared.warp` to `true`)
-```yaml
-manage_cloudflared.ingresses:
-   - hostname: statuspage.externaldomain.com
-     service: "https://10.1.2.3:443"
-     dont_verify_ssl: true
-     host_header: "status.internaldomain.com"
-   - hostname: timeclock.externaldomain.com
-     service: "https://timeclock.internaldomain.net:443"
-   - hostname: timeclock.externaldomain.com
-     service: "https://timeclock.internaldomain.net:443"
-```
+   ```yaml
+   manage_cloudflared.warp: true
+   manage_cloudflared.tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
+   manage_cloudflared.account_tag: "1234567abcdefg890123hijklom45678"
+   manage_cloudflared.tunnel_secret: "YmFkc2VjcmV0Cg=="
+   manage_cloudflared.tunnel_name: "internal_warp"
+   ```
+2. Either the `manage_cloudflared.console_token` method or the local configuration method
+   ```yaml
+   console_token: "BASE64 STRING OF TUNNEL TOKEN"
+   ```
+   OR
+   ```yaml
+   manage_cloudflared.tunnel_uuid: "a1b234c5-de67-89f0-g123-4hi5jk678l90"
+   manage_cloudflared.account_tag: "1234567abcdefg890123hijklom45678"
+   manage_cloudflared.tunnel_secret: "YmFkc2VjcmV0Cg=="
+   manage_cloudflared.tunnel_name: "internal_websites"
+   manage_cloudflared.ingresses:
+      - hostname: statuspage.externaldomain.com
+        service: "https://10.1.2.3:443"
+        dont_verify_ssl: true
+        host_header: "status.internaldomain.com"
+      - hostname: timeclock.externaldomain.com
+        service: "https://timeclock.internaldomain.net:443"
+      - hostname: timeclock.externaldomain.com
+        service: "https://timeclock.internaldomain.net:443"
+   ```
+
+ZTA Managed Tunnels
+-------------------
+If you use `manage_cloudflared.console_token` you don't need to specify any other variables as the Zero Trust Console will
+manage everything else.
+
+Additionally, please note that migrating between config file managed and ZTA managed tunnels will not work because the service install test
+only checks if the service exists, so installing one prior to the other will not result in removing the old style of service. You will have
+to manually remove the old service first.
 
 Testing
 -------

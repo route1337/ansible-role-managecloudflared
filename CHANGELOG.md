@@ -2,6 +2,11 @@ Ansible Role - manage_cloudflared: Changelog
 =====================================
 A list of all the changes made to this repo and the role it contains
 
+Version 0.4.0
+--------------
+
+1. Cloudflared can now be managed by the ZTA console (or Terraform) via a one time use token instead of the local `config.yml` 
+
 Version 0.3.1
 -------------
 

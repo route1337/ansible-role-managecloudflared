@@ -12,10 +12,20 @@
 
 # Configure SystemD to enable and start cloudflared
 
-- name: Install cloudflared as a service
+- name: Install cloudflared (file managed) as a service
   command:
     cmd: 'cloudflared service install'
     creates: '/etc/systemd/system/cloudflared.service'
+  when: manage_cloudflared.console_token is not defined
+  register: cloudflared_service
+  notify:
+    - reload systemd
+
+- name: Install cloudflared (ZTA managed) as a service
+  command:
+    cmd: 'cloudflared service install {{ manage_cloudflared.console_token }}'
+    creates: '/etc/systemd/system/cloudflared.service'
+  when: manage_cloudflared.console_token is defined
   register: cloudflared_service
   notify:
     - reload systemd
