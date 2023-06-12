@@ -12,13 +12,14 @@
 
 # Deploy and configure tunnels for cloudflared
 
-- name: Deploy the tunnel
+- name: Deploy the tunnel (File managed)
   ansible.builtin.template:
     src: 'credentials.json.j2'
     dest: '/etc/cloudflared/credentials.json'
     owner: root
     group: root
     mode: 0600
+  when: manage_cloudflared.console_token is not defined
   notify:
     - restart cloudflared
 
@@ -29,5 +30,6 @@
     owner: root
     group: root
     mode: 0600
+  when: manage_cloudflared.console_token is not defined
   notify:
     - restart cloudflared

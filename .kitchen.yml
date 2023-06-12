@@ -62,3 +62,15 @@ suites:
     verifier:
       inspec_tests:
         - tests/smoke/repo-role/warp
+  - name: managed
+    provisioner:
+      require_ansible_repo: true
+      require_ansible_source: false
+      playbook: tests/playbooks/repo-role.yml
+      hosts: kitchen
+      roles_path: .
+      ansible_inventory: tests/inventory
+      host_vars_path: tests/host_vars/managed
+    verifier:
+      inspec_tests:
+      - tests/smoke/repo-role/managed

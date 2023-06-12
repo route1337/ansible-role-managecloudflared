@@ -1,0 +1,17 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Testing an ingress tunnel
+
+manage_cloudflared:
+  console_token: "eyJhIjoiY2Y2ZTZjYTk3MTMxZjg4ZDNkYjY4YzdmNWYxNGY2YzIiLCJ0IjoiZmFiMDk3MTQtYmI0My00NjI5LWExYTEtMWFjNTMyZjhiZGVlIiwicyI6Ik1qYzNZekV4TnpndE9UQTVOQzAwTW1JMExUbG1PV010TlRNd01qbG1NVGxpTWpabCJ9"
+  #console_token: "Yes this is a token"
