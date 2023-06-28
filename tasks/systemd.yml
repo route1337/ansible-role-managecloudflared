@@ -21,7 +21,30 @@
   notify:
     - reload systemd
 
-- name: Install cloudflared (ZTA managed) as a service
+- name: Check if the systemd service already exists (ZTA managed)
+  stat:
+    path: /etc/systemd/system/cloudflared.service
+  register: service_status
+  when: manage_cloudflared.console_token is defined
+
+- name: Read the contents of the existing systemd service (ZTA managed)
+  slurp:
+    src: /etc/systemd/system/cloudflared.service
+  register: service_contents
+  when: manage_cloudflared.console_token is defined and service_status.stat.exists
+
+- name: Check if the service has an up to date token (ZTA managed)
+  set_fact:
+    service_contains_token: "{{ manage_cloudflared.console_token in (service_contents['content'] | b64decode) }}"
+  when: manage_cloudflared.console_token is defined and service_status.stat.exists
+
+- name: Remove old cloudflare service (ZTA managed)
+  command:
+    cmd: 'cloudflared service uninstall'
+    removes: '/etc/systemd/system/cloudflared.service'
+  when: (service_status.stat.exists and not service_contains_token) and (manage_cloudflared.console_token is defined)
+
+- name: (Re)install cloudflared (ZTA managed) as a service
   command:
     cmd: 'cloudflared service install {{ manage_cloudflared.console_token }}'
     creates: '/etc/systemd/system/cloudflared.service'
