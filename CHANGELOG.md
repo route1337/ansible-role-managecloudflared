@@ -2,6 +2,12 @@ Ansible Role - manage_cloudflared: Changelog
 =====================================
 A list of all the changes made to this repo and the role it contains
 
+Version 0.6.0
+-------------
+
+1. Added Ubuntu 24.04 support
+2. Removed Ubuntu 18.04 support
+
 Version 0.5.0
 -------------
 
