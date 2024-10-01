@@ -10,8 +10,8 @@ are largely the same for Linux.
 
 1. Install the Ruby virtual environment tools via `brew install rbenv ruby-build`
 2. Install the Ansible linting tool via `brew install ansible-lint`
-3. Configure a Ruby 3.1.2 virtual environment via `rbenv install 3.1.2`
-4. Set it to be the default via `rbenv global 3.1.2`
+3. Configure a Ruby 3.3.5 virtual environment via `rbenv install 3.3.5`
+4. Set it to be the default via `rbenv global 3.3.5`
 5. Add the following to your `~/.profile`
     ```
     rubydev()
@@ -22,12 +22,11 @@ are largely the same for Linux.
 6. Enter the Ruby virtual environment via `rubyenv` (Re-source your .profile first)
 7. Then just `gem install bundler && bundle install` while in the repo root.
 8. Make sure you have AWS credentials for the default profile with active API access
-9. For Ubuntu 22.04+ you will need a custom AMI that has RSA enabled for sshd until Vagrant is updated
-10. Now try `kitchen list` to see the roles available for testing.
-11. Create a Cloudflare account with an authoritative domain configured
-12. Login to a cloudflared install on your local machine and create some test tunnels matching the configurations you are testing changes too.
+9. Now try `kitchen list` to see the roles available for testing.
+10. Create a Cloudflare account with an authoritative domain configured
+11. Login to a cloudflared install on your local machine and create some test tunnels matching the configurations you are testing changes too.
     1. It's a good idea to test all tunnel variants before opening a PR
-13. Validate the role works against your test tunnels
+12. Validate the role works against your test tunnels
 
 Delayed PRs
 -----------

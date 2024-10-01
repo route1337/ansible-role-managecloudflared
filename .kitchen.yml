@@ -30,6 +30,8 @@ transport:
   connection_timeout: 10
   connection_retries: 5
   username: ubuntu
+  name: ssh
+  max_ssh_sessions: 2
 
 platforms:
   - name: ubuntu-20.04

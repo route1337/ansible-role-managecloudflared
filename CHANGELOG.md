@@ -7,6 +7,8 @@ Version 0.6.0
 
 1. Added Ubuntu 24.04 support
 2. Removed Ubuntu 18.04 support
+3. Fixed a transport SSH issue that sometimes results in file transfer failures in test-kitchen
+4. Documentation updates
 
 Version 0.5.0
 -------------
