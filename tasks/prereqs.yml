@@ -12,22 +12,62 @@
 
 # Manage prerequisites for this role
 
-- name: Download cloudflared GPG key
+- name: Find the legacy cloudflared apt sources
+  ansible.builtin.find:
+    paths: /etc/apt/sources.list.d
+    patterns: '*.list*'
+    contains: '.*pkg\.cloudflare\.com.*'
+  register: legacy_cloudflared_source
+
+- name: Remove the legacy cloudflared apt sources
+  ansible.builtin.file:
+    path: '{{ item.path }}'
+    state: absent
+  loop: "{{ legacy_cloudflared_source.files }}"
+  loop_control:
+    label: '{{ item.path | default("") | basename }}'
+
+- name: Remove the legacy cloudflared keyrings
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: absent
+  loop:
+    - /usr/share/keyrings/cloudflared.gpg
+    - /usr/share/keyrings/cloudflared.gpg_armored
+    - /etc/apt/keyrings/cloudflared.asc
+
+- name: Make sure the apt keyrings directory exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Add the cloudflared GPG key
   ansible.builtin.get_url:
     url: https://pkg.cloudflare.com/cloudflare-main.gpg
-    dest: /usr/share/keyrings/cloudflared.gpg_armored
-
-- name: De-Armor and install Docker GPG key
-  shell: "gpg --dearmor < /usr/share/keyrings/cloudflared.gpg_armored > /usr/share/keyrings/cloudflared.gpg"
-  args:
-    creates: /usr/share/keyrings/cloudflared.gpg
+    dest: /etc/apt/keyrings/cloudflared.gpg
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Add the cloudflared repository
-  ansible.builtin.apt_repository:
-    repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflared.gpg] https://pkg.cloudflare.com/cloudflared {{ ansible_distribution_release }} main'
+  ansible.builtin.deb822_repository:
+    name: cloudflared
+    types: deb
+    uris: https://pkg.cloudflare.com/cloudflared
+    suites: "{{ cloudflared_apt_suite }}"
+    components: main
+    architectures: "{{ cloudflared_arch }}"
+    signed_by: /etc/apt/keyrings/cloudflared.gpg
     state: present
+  vars:
+    cloudflared_arch: "{{ 'arm64' if ansible_facts['architecture'] == 'aarch64' else 'amd64' }}"
+
+- name: Refresh apt cache
+  ansible.builtin.apt:
     update_cache: true
-    filename: pkg_cloudflare_com
 
 - name: Install cloudflared
   ansible.builtin.apt:
@@ -39,5 +79,5 @@
     path: "/etc/cloudflared"
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
     state: directory

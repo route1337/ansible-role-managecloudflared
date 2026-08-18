@@ -250,3 +250,6 @@ pkg/
 # Virtual environments
 pyenv/
 venv/
+
+# Ansible lint cache
+.ansible/

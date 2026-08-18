@@ -12,52 +12,44 @@
 
 # Configure SystemD to enable and start cloudflared
 
-- name: Install cloudflared (file managed) as a service
-  command:
-    cmd: 'cloudflared service install'
-    creates: '/etc/systemd/system/cloudflared.service'
-  when: manage_cloudflared.console_token is not defined
-  register: cloudflared_service
-  notify:
-    - reload systemd
-
-- name: Check if the systemd service already exists (ZTA managed)
-  stat:
+- name: Check if the systemd service already exists
+  ansible.builtin.stat:
     path: /etc/systemd/system/cloudflared.service
   register: service_status
-  when: manage_cloudflared.console_token is defined
 
-- name: Read the contents of the existing systemd service (ZTA managed)
-  slurp:
+- name: Read the contents of the existing systemd service
+  ansible.builtin.slurp:
     src: /etc/systemd/system/cloudflared.service
   register: service_contents
-  when: manage_cloudflared.console_token is defined and service_status.stat.exists
+  when: service_status.stat.exists
+  no_log: true
 
-- name: Check if the service has an up to date token (ZTA managed)
-  set_fact:
+- name: Check if the service has an up to date token
+  ansible.builtin.set_fact:
     service_contains_token: "{{ manage_cloudflared.console_token in (service_contents['content'] | b64decode) }}"
-  when: manage_cloudflared.console_token is defined and service_status.stat.exists
+  when: service_status.stat.exists
+  no_log: true
 
-- name: Remove old cloudflare service (ZTA managed)
-  command:
+- name: Remove the old cloudflared service
+  ansible.builtin.command:
     cmd: 'cloudflared service uninstall'
     removes: '/etc/systemd/system/cloudflared.service'
-  when: (service_status.stat.exists and not service_contains_token) and (manage_cloudflared.console_token is defined)
+  when:
+    - service_status.stat.exists
+    - not service_contains_token | default(true)
 
-- name: (Re)install cloudflared (ZTA managed) as a service
-  command:
+- name: (Re)install cloudflared as a service
+  ansible.builtin.command:
     cmd: 'cloudflared service install {{ manage_cloudflared.console_token }}'
     creates: '/etc/systemd/system/cloudflared.service'
-  when: manage_cloudflared.console_token is defined
-  register: cloudflared_service
-  notify:
-    - reload systemd
+  notify: Reload systemd
+  no_log: true
 
 - name: Run handlers now to reload SystemD
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Start and enable cloudflared
-  service:
+  ansible.builtin.service:
     name: cloudflared
     enabled: true
     state: restarted

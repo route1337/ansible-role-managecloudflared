@@ -1,0 +1,25 @@
+---
+#
+# Project:: Ansible Role - manage_cloudflared
+#
+# Copyright 2022, Route 1337 LLC, All Rights Reserved.
+#
+# Maintainers:
+# - Matthew Ahrenstein: matthew@route1337.com
+#
+# See LICENSE
+#
+
+# Variables used internally by this role
+
+# Cloudflare does not publish an apt suite for every Ubuntu release. Anything
+# they have not published yet falls back to noble, which works because
+# cloudflared ships as a static binary.
+cloudflared_published_suites:
+  - jammy
+  - noble
+
+cloudflared_apt_suite: >-
+  {{ ansible_facts['distribution_release']
+     if ansible_facts['distribution_release'] in cloudflared_published_suites
+     else 'noble' }}
