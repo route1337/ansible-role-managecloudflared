@@ -12,13 +12,7 @@
 
 # Handlers used for various tasks in this role
 
-# Handlers for systemd
-- name: reload systemd
-  systemd:
+- name: Reload systemd
+  ansible.builtin.systemd_service:
     daemon_reload: true
     no_block: false
-
-- name: restart cloudflared
-  service:
-    name: cloudflared
-    state: restarted

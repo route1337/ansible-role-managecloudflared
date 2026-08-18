@@ -1,3 +1,4 @@
+---
 #
 # Project:: Ansible Role - manage_cloudflared
 #
@@ -9,6 +10,7 @@
 # See LICENSE
 #
 
-# There is only one host in the test inventory since kitchen only works as localhost
-[kitchen]
-localhost
+skip_list:
+  # Cloudflare warns about outdated tunnels, so keeping cloudflared current is
+  # a goal of this role rather than an oversight.
+  - package-latest

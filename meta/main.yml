@@ -12,19 +12,22 @@
 
 galaxy_info:
   role_name: "manage_cloudflared"
+  namespace: route1337
   author: "Matthew Ahrenstein"
   description: "Deploy and configure cloudflared using pre-created tunnel credentials"
   company: "Route 1337 LLC"
-  license: "license (MIT)"
-  min_ansible_version: "2.8"
+  license: "MIT"
+  min_ansible_version: "2.15"
   platforms:
     - name: Ubuntu
       versions:
-        - focal
-        - jammy
+        - noble
+        - resolute
   galaxy_tags:
     - cloudflared
     - zerotrust
     - security
     - vpn
     - reverseproxy
+
+dependencies: []
